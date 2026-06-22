@@ -69,7 +69,10 @@ echo "Starting NexusHR frontend on http://localhost:$FRONTEND_PORT"
 ) >"$LOG_DIR/frontend.log" 2>&1 &
 FRONTEND_PID=$!
 
-wait_for_url "Backend" "http://localhost:$BACKEND_PORT/actuator/health"
+# In Vercel build/runtime, some health indicators (e.g., SMTP) may be unavailable,
+# causing actuator health to be DOWN/slow even though the app is already running.
+# So we only require that the actuator endpoint responds successfully.
+wait_for_url "Backend" "http://localhost:$BACKEND_PORT/actuator/health" 90
 wait_for_url "Frontend" "http://localhost:$FRONTEND_PORT/"
 
 echo
