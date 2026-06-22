@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "./dev.sh",
+    "dev": "sh -c 'npm run dev:backend --silent & npm run dev:frontend & for i in $(seq 1 90); do (curl -fsS http://localhost:8080/actuator/health >/dev/null 2>&1 && exit 0) || true; sleep 1; done; echo \"Backend not reachable\"; exit 1'",
     "install:frontend": "npm install --prefix frontend",
     "dev:frontend": "npm run dev --prefix frontend -- --host 0.0.0.0",
     "build:frontend": "npm run build --prefix frontend",

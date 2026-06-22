@@ -41,8 +41,6 @@ management:
       probes:
         enabled: false
   health:
-    redis:
-      enabled: false
 
 nexushr:
   jwt:
