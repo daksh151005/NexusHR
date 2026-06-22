@@ -1,0 +1,14 @@
+# Supabase Edge Functions configuration
+#
+# For non-"user" auth modes, you can disable JWT verification per-function:
+#   verify_jwt = false
+#
+# This is a template; adapt per your deployed function needs.
+
+[functions]
+# Default behavior is to verify JWTs (good for auth: "user").
+# For non-user modes, set verify_jwt = false in the specific function below.
+
+# Example (uncomment if you add functions that use auth: "none" / "publishable" / "secret"):
+# [functions."health"]
+# verify_jwt = false

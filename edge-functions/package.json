@@ -1,0 +1,9 @@
+{
+    "name": "nexushr-edge-functions",
+    "private": true,
+    "type": "module",
+    "version": "0.0.1",
+    "dependencies": {
+        "@supabase/server": "*"
+    }
+}

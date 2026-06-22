@@ -11,7 +11,7 @@ import type {
   PerformanceReviewView
 } from "./types";
 
-const API_URL = "http://localhost:8080/api";
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080/api";
 
 async function request<T>(path: string, token: string, options: RequestInit = {}): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {

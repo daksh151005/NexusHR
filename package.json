@@ -12,5 +12,8 @@
     "status:backend": "lsof -nP -iTCP:8080 -sTCP:LISTEN",
     "status:frontend": "lsof -nP -iTCP:5173 -sTCP:LISTEN",
     "test:backend": "mvn test -f backend/pom.xml"
+  },
+  "dependencies": {
+    "@supabase/server": "^1.1.0"
   }
 }
