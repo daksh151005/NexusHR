@@ -1,0 +1,16 @@
+{
+  "name": "nexushr",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "./dev.sh",
+    "install:frontend": "npm install --prefix frontend",
+    "dev:frontend": "npm run dev --prefix frontend -- --host 0.0.0.0",
+    "build:frontend": "npm run build --prefix frontend",
+    "dev:backend": "mvn spring-boot:run -f backend/pom.xml",
+    "dev:backend:8081": "mvn spring-boot:run -f backend/pom.xml -Dspring-boot.run.arguments=--server.port=8081",
+    "status:backend": "lsof -nP -iTCP:8080 -sTCP:LISTEN",
+    "status:frontend": "lsof -nP -iTCP:5173 -sTCP:LISTEN",
+    "test:backend": "mvn test -f backend/pom.xml"
+  }
+}

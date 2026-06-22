@@ -1,0 +1,278 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-soft: #eef4f1;
+  --border: #d8dee6;
+  --text: #18202a;
+  --muted: #617083;
+  --accent: #147d6f;
+  --accent-strong: #0d5f55;
+  --danger: #b42318;
+  --shadow: 0 16px 40px rgba(31, 42, 55, 0.08);
+  font-family: "Space Grotesk", sans-serif;
+  background: linear-gradient(180deg, #f7f8fa 0%, #edf2f7 100%);
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: white;
+}
+
+.login-shell,
+.page-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+}
+
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.login-panel {
+  width: min(920px, 100%);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+.login-panel h1,
+.app-header h1,
+.section-intro h2 {
+  margin: 6px 0 10px;
+  font-size: 2rem;
+  letter-spacing: 0;
+}
+
+.login-form {
+  display: grid;
+  gap: 14px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-strong);
+}
+
+.hero-copy,
+.operations-bar p,
+.insight-card small,
+table {
+  color: var(--muted);
+}
+
+.session-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.session-chip strong {
+  color: var(--accent-strong);
+}
+
+.session-chip button,
+.row-actions button {
+  background: #243447;
+  padding: 7px 10px;
+}
+
+.notice,
+.form-error {
+  color: var(--danger);
+  background: #fff2f0;
+  border: 1px solid #ffc9c2;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.metrics-grid,
+.insight-grid,
+.dashboard-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.metrics-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 20px 0;
+}
+
+.metric-card,
+.table-card,
+.insight-card,
+.operations-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.metric-card,
+.insight-card,
+.table-card {
+  padding: 16px;
+}
+
+.metric-card p,
+.insight-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.metric-card h3,
+.insight-card h3 {
+  margin: 10px 0 6px;
+  font-size: 1.8rem;
+}
+
+.operations-bar {
+  display: grid;
+  grid-template-columns: 1fr 180px auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.operations-bar h2 {
+  margin: 0 0 4px;
+}
+
+.operations-bar p {
+  margin: 0;
+}
+
+.insights-panel {
+  margin: 18px 0 20px;
+}
+
+.insight-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.insight-card span {
+  display: block;
+  color: var(--accent-strong);
+  margin-bottom: 8px;
+}
+
+.dashboard-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.table-card {
+  overflow: auto;
+}
+
+.table-header h3 {
+  margin: 0 0 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 11px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+th {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-strong);
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 960px) {
+  .login-panel,
+  .app-header,
+  .operations-bar,
+  .metrics-grid,
+  .insight-grid,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header,
+  .session-chip {
+    align-items: flex-start;
+  }
+
+  .session-chip {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,68 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: nexushr-backend
+  datasource:
+    url: ${DB_URL:jdbc:h2:mem:nexushr;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      repositories:
+        enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    redis:
+      enabled: ${REDIS_HEALTH_ENABLED:false}
+
+nexushr:
+  jwt:
+    secret: ${JWT_SECRET:nexushr-local-development-secret-key-with-at-least-256-bits}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/nexushr}
+    username: ${DB_USERNAME:nexushr}
+    password: ${DB_PASSWORD:nexushr}
+    driver-class-name: org.postgresql.Driver
+
+management:
+  health:
+    redis:
+      enabled: ${REDIS_HEALTH_ENABLED:true}
