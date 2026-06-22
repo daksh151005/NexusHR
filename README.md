@@ -41,7 +41,7 @@ npm install
 npm run dev
 ```
 
-The frontend expects the backend at `http://localhost:8080`.
+The frontend uses `VITE_API_URL` for the backend API base URL and defaults to `http://localhost:8080/api` for local development.
 
 ### Full Stack With PostgreSQL, Redis, Prometheus, and Grafana
 
