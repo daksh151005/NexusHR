@@ -11,17 +11,44 @@ import type {
   PerformanceReviewView
 } from "./types";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080/api";
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+const API_URL = configuredApiUrl || "http://localhost:8080/api";
+
+function isRemoteFrontendUsingLocalApi(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1" && API_URL.includes("localhost");
+}
+
+function describeApiFailure(defaultMessage: string): string {
+  if (isRemoteFrontendUsingLocalApi()) {
+    return "This deployment is still pointing to localhost. Set VITE_API_URL in Vercel to your public backend URL and redeploy.";
+  }
+
+  if (!configuredApiUrl) {
+    return "The backend API URL is missing for this build. Set VITE_API_URL and redeploy.";
+  }
+
+  return `${defaultMessage} (${API_URL})`;
+}
 
 async function request<T>(path: string, token: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      ...options.headers
-    }
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        ...options.headers
+      }
+    });
+  } catch {
+    throw new Error(describeApiFailure("Could not reach the backend API"));
+  }
 
   if (!response.ok) {
     throw new Error(`Request failed for ${path}: ${response.status}`);
@@ -31,15 +58,25 @@ async function request<T>(path: string, token: string, options: RequestInit = {}
 }
 
 export async function login(email: string, password: string): Promise<AuthResponse> {
-  const response = await fetch(`${API_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
+  } catch {
+    throw new Error(describeApiFailure("Could not reach the backend API"));
+  }
 
   if (!response.ok) {
+    if (response.status !== 401) {
+      throw new Error(`Login failed: ${response.status}`);
+    }
+
     throw new Error("Invalid credentials");
   }
 
